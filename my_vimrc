@@ -1,0 +1,320 @@
+" This line should not be removed as it ensures that various options are
+" properly set to work with the Vim-related packages available in Debian.
+runtime! debian.vim
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'vim-airline/vim-airline'
+Plugin 'connorholyday/vim-snazzy'
+" File navigation
+Plugin 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+" Taglist
+Plugin 'majutsushi/tagbar', { 'on': 'TagbarOpenAutoClose' }
+
+" Error checking
+Plugin 'w0rp/ale'
+
+" Auto Complete
+Plugin 'Valloric/YouCompleteMe'
+
+" Undo Tree
+Plugin 'mbbill/undotree'
+
+" Other visual enhancement
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'itchyny/vim-cursorword'
+
+" Git
+Plugin 'rhysd/conflict-marker.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'mhinz/vim-signify'
+Plugin 'gisphm/vim-gitignore', { 'for': ['gitignore', 'vim-plug'] }
+
+" HTML, CSS, JavaScript, PHP, JSON, etc.
+Plugin 'elzr/vim-json'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
+Plugin 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+Plugin 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
+Plugin 'mattn/emmet-vim'
+
+" Python
+Plugin 'vim-scripts/indentpython.vim'
+
+" Markdown
+Plugin 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
+Plugin 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
+Plugin 'vimwiki/vimwiki'
+
+" Bookmarks
+Plugin 'kshenoy/vim-signature'
+
+" Other useful utilities
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'junegunn/goyo.vim' " distraction free writing mode
+Plugin 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
+Plugin 'godlygeek/tabular' " type ;Tabularize /= to align the =
+Plugin 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or type i) i] i} ip
+Plugin 'scrooloose/nerdcommenter' " in <space>cc to comment a line
+
+" Dependencies
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'kana/vim-textobj-user'
+Plugin 'fadein/vim-FIGlet'
+
+
+" All of your Pluginins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+syntax on
+
+set background=dark
+set showmatch		" Show matching brackets.
+set ignorecase		" Do case insensitive matching
+set smartcase		" Do smart case matching
+set incsearch		" Incremental search
+set hidden		" Hide buffers when they are abandoned
+" Source a global configuration file if available
+if filereadable("/etc/vim/vimrc.local")
+  source /etc/vim/vimrc.local
+endif
+set nu
+set nobackup
+set cursorline
+set ruler
+set autoindent
+set cindent
+set smartindent
+
+let g:airline_powerline_fonts = 1
+let mapleader=" "
+set relativenumber
+set cursorline
+set wrap
+set showcmd
+set wildmenu
+set hlsearch
+exec "nohlsearch"
+set t_Co=256     "终端开启256色支持"
+color snazzy
+
+filetype on
+filetype indent on
+filetype plugin on
+filetype plugin indent on
+set mouse=a
+set encoding=utf-8
+let &t_ut=''
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set list
+set listchars=tab:▸\ ,trail:▫
+set scrolloff=5
+set tw=0
+set indentexpr=
+set backspace=indent,eol,start
+set foldmethod=indent
+set foldlevel=99
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+set laststatus=2
+set autochdir
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+
+noremap <LEADER><CR> :nohlsearch<CR>
+noremap = nzz
+noremap - Nzz
+map md :set splitright<CR>:vsplit<CR>
+map ma :set nosplitright<CR>:vsplit<CR>
+map mw :set nosplitbelow<CR>:split<CR>
+map ms :set splitbelow<CR>:split<CR>
+
+map <LEADER>l <C-w>l
+map <LEADER>k <C-W>k
+map <LEADER>j <C-w>j
+map <LEADER>h <C-w>h
+
+map <up> :res +5<CR>
+map <down> :res -5<CR>
+map <left> :vertical resize-5<CR>
+map <right> :vertical resize+5<CR>
+
+map mt :tabe<CR>
+map mh :-tabnext<CR>
+map ml :+tabnext<CR>
+
+map mc <C-w>t<C-w>H
+map mv <C-w>t<C-w>K
+
+
+"vim-airline"
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+
+
+" ===
+" === NERDTree
+" ===
+map tt :NERDTreeToggle<CR>
+let NERDTreeMapOpenExpl = ""
+let NERDTreeMapUpdir = ""
+let NERDTreeMapUpdirKeepOpen = "l"
+let NERDTreeMapOpenSplit = ""
+let NERDTreeOpenVSplit = ""
+let NERDTreeMapActivateNode = "i"
+let NERDTreeMapOpenInTab = "o"
+let NERDTreeMapPreview = ""
+let NERDTreeMapCloseDir = "n"
+let NERDTreeMapChangeRoot = "y"
+
+" ==
+" == NERDTree-git
+" ==
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+
+" ===
+" === You Complete ME
+" ===
+nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap g/ :YcmCompleter GetDoc<CR>
+nnoremap gt :YcmCompleter GetType<CR>
+nnoremap gr :YcmCompleter GoToReferences<CR>
+let g:ycm_autoclose_preview_window_after_completion=0
+let g:ycm_autoclose_preview_window_after_insertion=1
+"let g:ycm_use_clangd = 0
+"let g:ycm_python_interpreter_path = 
+"let g:ycm_python_binary_path = 
+"let g:ycm_clangd_binary_path = "~/ycm_temp/llvm_root_dir/bin/clangd"
+"let g:ycm_global_ycm_extra_conf="/home/me/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py"
+"set runtimepath+=~/.vim/bundle/YouCompleteMe
+
+
+" ===
+" === ale
+" ===
+"let b:ale_linters = ['pylint']
+"let b:ale_fixers = ['autopep8', 'yapf']
+
+
+" ===
+" === Taglist
+" ===
+map <silent> T :TagbarOpenAutoClose<CR>
+
+
+" ===
+" === MarkdownPreview
+" ===
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 1
+let g:mkdp_refresh_slow = 0
+let g:mkdp_command_for_global = 0
+let g:mkdp_open_to_the_world = 0
+let g:mkdp_open_ip = ''
+let g:mkdp_browser = 'chromium'
+let g:mkdp_echo_preview_url = 0
+let g:mkdp_browserfunc = ''
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1
+    \ }
+let g:mkdp_markdown_css = ''
+let g:mkdp_highlight_css = ''
+let g:mkdp_port = ''
+let g:mkdp_page_title = '「${name}」'
+
+
+" ===
+" === vim-table-mode
+" ===
+map <LEADER>tm :TableModeToggle<CR>
+
+" ===
+" === Python-syntax
+" ===
+let g:python_highlight_all = 1
+" let g:python_slow_sync = 0
+
+
+" ===
+" === vim-indent-guide
+" ===
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_color_change_percent = 1
+silent! unmap <LEADER>ig
+autocmd WinEnter * silent! unmap <LEADER>ig
+
+
+" ===
+" === Goyo
+" ===
+map <LEADER>gy :Goyo<CR>
+
+
+" ===
+" === vim-signiture
+" ===
+let g:SignatureMap = {
+        \ 'Leader'             :  "m",
+        \ 'PlaceNextMark'      :  "m,",
+        \ 'ToggleMarkAtLine'   :  "m.",
+        \ 'PurgeMarksAtLine'   :  "dm-",
+        \ 'DeleteMark'         :  "dm",
+        \ 'PurgeMarks'         :  "dm/",
+        \ 'PurgeMarkers'       :  "dm?",
+        \ 'GotoNextLineAlpha'  :  "m<LEADER>",
+        \ 'GotoPrevLineAlpha'  :  "",
+        \ 'GotoNextSpotAlpha'  :  "m<LEADER>",
+        \ 'GotoPrevSpotAlpha'  :  "",
+        \ 'GotoNextLineByPos'  :  "",
+        \ 'GotoPrevLineByPos'  :  "",
+        \ 'GotoNextSpotByPos'  :  "mn",
+        \ 'GotoPrevSpotByPos'  :  "mp",
+        \ 'GotoNextMarker'     :  "",
+        \ 'GotoPrevMarker'     :  "",
+        \ 'GotoNextMarkerAny'  :  "",
+        \ 'GotoPrevMarkerAny'  :  "",
+        \ 'ListLocalMarks'     :  "m/",
+        \ 'ListLocalMarkers'   :  "m?"
+        \ }
+
+
+" ===
+" === Undotree
+" ===
+let g:undotree_DiffAutoOpen = 0
+map L :UndotreeToggle<CR>
+
+
